@@ -27,16 +27,21 @@ io.on('connection', function(socket){
 });
 
 io.on('connection', function(socket){
+	socket.on('score assessment', function(msg){
+		test = sentiment(msg);
+		io.emit('score assessment', test.comparative);
+		console.log(test);
+		//counter+=test.score;
+		//console.log(counter);
+
+	});
+});
+
+io.on('connection', function(socket){
 	socket.on('chat message', function(msg){
-		console.log('message: ' + msg);
 		io.emit('chat message', msg);
 		clientId = msg;
 		socket.emit('clientId', msg);
-		console.log(clientId);
-		test = sentiment(msg);
-		console.log(test);
-		counter+=test.score;
-		console.log(counter);
 
 	});
 });
